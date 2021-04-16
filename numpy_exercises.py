@@ -257,7 +257,7 @@ print(np.shape(c))
 #  (3,3)
 
 # Exercise 5 - Transpose c and print out transposed result.
-c.transpose()
+np.transpose(c)
 # array([[1, 4, 7],
     #    [2, 5, 8],
     #    [3, 6, 9]])
