@@ -265,10 +265,50 @@ caps = letters.str.capitalize()
 cap_ser = pd.Series(caps)
 
 # 6. Create a bar plot of the frequencies of the 6 most commonly occuring letters.
-cap_ser.value_counts().head(7).plot.bar(color = 'orange', width =.5, ec = 'black')
+cap_ser.value_counts().head(6).plot.bar(color = 'orange', width =.5, ec = 'black')
 plt.title('Question 6')
 plt.grid(True, ls=':')
 plt.xlabel('$Letters$', size = 12)
-plt.ylabel('$Frequency$')
+plt.ylabel('$Frequency$', rotation = 0, labelpad = 25)
 plt.xticks(rotation = 0)
 plt.show()
+
+Use pandas to create a Series named numbers from the following list:
+
+# 1. What is the data type of the numbers Series?
+numbers.dtype
+# dtype('O')
+
+# 2. How many elements are in the number Series?
+numbers.describe()
+# count                20
+# unique               20
+# top       $4,338,283.54
+# freq                  1
+# dtype: object
+
+# 3. Perform the necessary manipulations by accessing Series attributes and methods to convert the numbers Series to a numeric data type.
+numbers = numbers.str.replace('$', '').str.replace(',', '').astype(float)
+
+# 4. Run the code to discover the maximum value from the Series.
+numbers.max()
+# 4789988.17
+
+# 5. Run the code to discover the minimum value from the Series.
+numbers.min()
+# 278.6
+
+# 6. What is the range of the values in the Series?
+num_range = numbers.max() - numbers.min()
+4789709.57
+
+# 7. Bin the data into 4 equally sized intervals or bins and output how many values fall into each bin.
+pd.cut(numbers, 4)
+pd.cut(numbers, 4).value_counts()
+# (-4511.11, 1197705.993]       7
+# (3592560.778, 4789988.17]     6
+# (1197705.993, 2395133.385]    4
+# (2395133.385, 3592560.778]    3
+# dtype: int64
+
+# 8. Plot the binned data in a meaningful way. Be sure to include a title and axis labels.
