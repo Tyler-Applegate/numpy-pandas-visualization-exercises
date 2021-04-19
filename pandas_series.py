@@ -25,8 +25,8 @@ fruits.values
     #    'papaya'], dtype=object)
 
 # 4. Confirm the data type of the values in fruits.
-type(fruits.values)
-# numpy.ndarray
+fruits.dtype
+# dtype('O')
 
 # 5. Output only the first five values from fruits. Output the last three values. Output two random values from fruits.
 fruits.head(5)
@@ -79,10 +79,16 @@ fruits.value_counts()
 # gala apple          1
 # dtype: int64
 
+fruits.nunique()
+# 13
+
 # 9. Determine the string value that occurs most frequently in fruits.
 fruits.value_counts().nlargest(n=1, keep = 'all')
 # kiwi    4
 # dtype: int64
+
+fruits.value_counts().idmax()
+# 'kiwi'
 
 # 10. Determine the string value that occurs least frequently in fruits.
 fruits.value_counts().nsmallest(n=1, keep = 'all')
@@ -98,3 +104,126 @@ fruits.value_counts().nsmallest(n=1, keep = 'all')
 # tomato              1
 # gala apple          1
 # dtype: int64
+
+
+
+# Exercises Part II
+# Explore more attributes and methods while you continue to work with the fruits Series.
+
+# 1. Capitalize all the string values in fruits.
+fruits.str.capitalize()
+# 0                 Kiwi
+# 1                Mango
+# 2           Strawberry
+# 3            Pineapple
+# 4           Gala apple
+# 5     Honeycrisp apple
+# 6               Tomato
+# 7           Watermelon
+# 8             Honeydew
+# 9                 Kiwi
+# 10                Kiwi
+# 11                Kiwi
+# 12               Mango
+# 13           Blueberry
+# 14          Blackberry
+# 15          Gooseberry
+# 16              Papaya
+# dtype: object
+
+# 2. Count the letter "a" in all the string values (use string vectorization).
+fruits.str.count('a')
+# 0     0
+# 1     1
+# 2     1
+# 3     1
+# 4     3
+# 5     1
+# 6     1
+# 7     1
+# 8     0
+# 9     0
+# 10    0
+# 11    0
+# 12    1
+# 13    0
+# 14    1
+# 15    0
+# 16    3
+# dtype: int64
+
+# 3. Output the number of vowels in each and every string value.
+def count_vowels(listName):
+    string = ''.join(listName)
+    count = 0
+    vowels = 'aeiouAEIOU'
+    for ch in string:
+        if ch in vowels:
+            count += 1
+    return count
+
+fruits.apply(count_vowels)
+
+# 0     2
+# 1     2
+# 2     2
+# 3     4
+# 4     4
+# 5     5
+# 6     3
+# 7     4
+# 8     3
+# 9     2
+# 10    2
+# 11    2
+# 12    2
+# 13    3
+# 14    2
+# 15    4
+# 16    3
+# dtype: int64
+# 4. Write the code to get the longest string value from fruits.
+max(fruits.str.len())
+#  16
+fruits[fruits.str.len().idxmax()
+#  'honeycrisp apple'
+
+# 5. Write the code to get the string values with 5 or more letters in the name.
+fruits[fruits.str.len() >= 5]
+# 1                mango
+# 2           strawberry
+# 3            pineapple
+# 4           gala apple
+# 5     honeycrisp apple
+# 6               tomato
+# 7           watermelon
+# 8             honeydew
+# 12               mango
+# 13           blueberry
+# 14          blackberry
+# 15          gooseberry
+# 16              papaya
+dtype: object
+
+# 6. Use the .apply method with a lambda function to find the fruit(s) containing the letter "o" two or more times.
+fruits[fruits.apply(lambda m : m.count('o') >= 2)]
+# 6         tomato
+# 15    gooseberry
+# dtype: object
+
+# 7. Write the code to get only the string values containing the substring "berry".
+fruits[fruits.str.contains('berry')]
+# 2     strawberry
+# 13     blueberry
+# 14    blackberry
+# 15    gooseberry
+# dtype: object
+# 8. Write the code to get only the string values containing the substring "apple".
+fruits[fruits.str.contains('apple')]
+# 3           pineapple
+# 4          gala apple
+# 5    honeycrisp apple
+# dtype: object
+# 9. Which string value contains the most vowels?
+fruits[fruits.apply(count_vowels).idxmax()]
+# 'honeycrisp apple'
