@@ -227,3 +227,48 @@ fruits[fruits.str.contains('apple')]
 # 9. Which string value contains the most vowels?
 fruits[fruits.apply(count_vowels).idxmax()]
 # 'honeycrisp apple'
+
+# Exercises Part III
+# Use pandas to create a Series named letters from the following string:
+
+letters = 'hnvidduckkqxwymbimkccexbkmqygkxoyndmcxnwqarhyffsjpsrabtjzsypmzadfavyrnndndvswreauxovncxtwzpwejilzjrmmbbgbyxvjtewqthafnbkqplarokkyydtubbmnexoypulzwfhqvckdpqtpoppzqrmcvhhpwgjwupgzhiofohawytlsiyecuproguy'
+ll = list(letters)
+letters = pd.Series(11)
+
+# 1. Which letter occurs the most frequently in the letters Series?
+letters.value_counts().nlargest(1)
+# y    13
+# p    12
+# w    10
+# m     9
+# b     9
+# dtype: int64
+
+# 2. Which letter occurs the Least frequently?
+letters.value_counts().nsmallest()
+# l    4
+# g    5
+# s    5
+# i    5
+# j    6
+# dtype: int64
+# 3. How many vowels are in the Series?
+letters.apply(count_vowels).sum()
+# 34
+
+# 4. How many consonants are in the Series?
+letters.str.count('[bcdfghjklmnpqrstvwxyz]').sum()
+# 166
+
+# 5. Create a Series that has all of the same letters but uppercased.
+caps = letters.str.capitalize()
+cap_ser = pd.Series(caps)
+
+# 6. Create a bar plot of the frequencies of the 6 most commonly occuring letters.
+cap_ser.value_counts().head(7).plot.bar(color = 'orange', width =.5, ec = 'black')
+plt.title('Question 6')
+plt.grid(True, ls=':')
+plt.xlabel('$Letters$', size = 12)
+plt.ylabel('$Frequency$')
+plt.xticks(rotation = 0)
+plt.show()
