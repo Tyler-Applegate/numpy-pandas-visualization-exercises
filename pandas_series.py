@@ -312,3 +312,65 @@ pd.cut(numbers, 4).value_counts()
 # dtype: int64
 
 # 8. Plot the binned data in a meaningful way. Be sure to include a title and axis labels.
+pd.cut(numbers,4).value_counts(sort = False).plot.barh(color = 'olive', ec = 'black')
+
+plt.title('Fancy Meaningful Chart')
+plt.xlabel('$Quantity$')
+plt.ylabel('$Range$', rotation = 0)
+plt.grid(True, ls = ':')
+
+plt.show()
+
+# Use pandas to create a Series named exam_scores from the following list:
+
+# 1. How many elements are in the exam_scores Series?
+exam_scores.describe()
+# count    20.000000
+# mean     78.150000
+# std      11.352139
+# min      60.000000
+# 25%      70.500000
+# 50%      79.000000
+# 75%      85.250000
+# max      96.000000
+# dtype: float64
+
+# 2. Run the code to discover the minimum, the maximum, the mean, and the median scores for the exam_scores Series.
+exam_scores.min()
+# 60
+exam_scores.max()
+# 96
+exam_scores.mean()
+# 78.15
+exam_scores.median()
+# 79.0
+
+# 3. Plot the Series in a meaningful way and make sure your chart has a title and axis labels.
+
+# 4. Write the code necessary to implement a curve for your exam_grades Series and save this as curved_grades. Add the necessary points to the highest grade to make it 100, and add the same number of points to every other score in the Series as well.
+curved_grades = exam_scores + 4
+curved_grades
+# 5. Use a method to convert each of the numeric values in the curved_grades Series into a categorical value of letter grades. For example, 86 should be a 'B' and 95 should be an 'A'. Save this as a Series named letter_grades.
+def letter_score(score):
+        if score < 70:
+            return 'F'
+        elif score < 75:
+            return 'D'
+        elif score < 80:
+            return 'C'
+        elif score < 90:
+            return 'B'
+        elif score >= 90:
+            return 'A'
+        
+letter_grades = curved_grades.apply(letter_score)
+letter_grades
+# 6. Plot your new categorical letter_grades Series in a meaninful way and include a title and axis labels.
+pd.cut(exam_scores, [0,69,74,79,84,89,94,100]).value_counts(sort=False).plot.bar(color = 'green', ec = 'black', linewidth = 2)
+plt.title('Exam Scores Histogram', color = 'maroon', fontsize = 16, weight = 'bold')
+plt.xlabel('Letter Grade Range', color = 'olive', fontsize = 12, weight = 'bold')
+plt.ylabel('Grade\nFrequency', color = 'olive', fontsize = 12, weight = 'bold', rotation = 0, labelpad = 50)
+plt.grid(True, ls = ':')
+plt.xticks([0,1,2,3,4,5,6], ['F', 'D', 'C', 'B', 'B+', 'A', 'A+'], color = 'olive', fontsize = 10, weight = 'bold', rotation = 0)
+
+plt.show()
